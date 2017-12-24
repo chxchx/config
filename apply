@@ -1,5 +1,10 @@
 #!/bin/bash
 
-for configFile in ./.*; do
-	cp configFile ~/
+for file in .*; do
+	if [ $file == "." ] || [ $file == ".." ] || [ $file == ".git" ]; then
+		continue
+	fi
+	echo "applying ${file}"
+	source $file
+	cp $file ~/
 done
