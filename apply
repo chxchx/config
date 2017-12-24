@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for configFile in ./.*; do
+	cp configFile ~/
+done
