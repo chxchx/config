@@ -27,18 +27,13 @@ if [ -f ~/.git-completion.bash ]; then
 	source ~/.git-completion.bash
 fi
 
-# Display git info in command line prompt
-if [ -f ~/.git-prompt.sh ]; then
-	source ~/.git-prompt.sh
-fi
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
 
 # Show return code from last command
 PS1=$(if [ $? = 0 ]; then echo "${GREEN}✔ "; else echo "${RED}✘ "; fi)
-
-if ! { [[ "$TERM" = *"screen"* ]] && [ -n "$TMUX" ]; } then
-	PS1="${PS1}${GREEN}[\h]${BOLD_BLUE}\w$(__git_ps1 " ${YELLOW}(%s)")${NO_COLOR}$ "
-else
-	PS1="${PS1}${GREEN}[\h]${BOLD_BLUE}\W$(__git_ps1 " ${YELLOW}(%s)")${NO_COLOR}$ "
-fi
+PS1="${PS1}${GREEN}[\h]${BOLD_BLUE}\W ${YELLOW}\$(parse_git_branch)${NO_COLOR} $ "
 
 alias la='ls -a'
+alias ls='ls -F --color=auto'
