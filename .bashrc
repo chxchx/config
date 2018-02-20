@@ -33,7 +33,7 @@ parse_git_branch() {
 
 # Show return code from last command
 PS1=$(if [ $? = 0 ]; then echo "${GREEN}✔ "; else echo "${RED}✘ "; fi)
-PS1="${PS1}${GREEN}[\h]${BOLD_BLUE}\W ${YELLOW}\$(parse_git_branch)${NO_COLOR} $ "
+PS1="${PS1}${GREEN}[\h]${BOLD_BLUE}\w${YELLOW}\$(parse_git_branch)${NO_COLOR} $ "
 
 alias la='ls -a'
 alias ls='ls -F --color=auto'
