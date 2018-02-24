@@ -27,13 +27,19 @@ if [ -f ~/.git-completion.bash ]; then
 	source ~/.git-completion.bash
 fi
 
-parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
+#parse_git_branch() {
+#     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+#}
 
 # Show return code from last command
-PS1=$(if [ $? = 0 ]; then echo "${GREEN}✔ "; else echo "${RED}✘ "; fi)
-PS1="${PS1}${GREEN}[\h]${BOLD_BLUE}\w${YELLOW}\$(parse_git_branch)${NO_COLOR} $ "
+#PS1=$(if [ $? = 0 ]; then echo "${GREEN}✔ "; else echo "${RED}✘ "; fi)
+#PS1="${PS1}${GREEN}[\h]${BOLD_BLUE}\w${YELLOW}\$(parse_git_branch)${NO_COLOR} $ "
+
+update_PS1 () {
+  PS1="$(powerline-shell $?)"
+}
+shopt -u promptvars
+PROMPT_COMMAND=update_PS1
 
 alias la='ls -a'
 alias ls='ls -F --color=auto'
